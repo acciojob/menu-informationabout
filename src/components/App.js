@@ -1,80 +1,139 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 
-const data = [
+const MENU_DATA = [
   {
-    id: "rec6d6T3q5EBIdCfD",
-    name: "Best of Paris in 7 Days Tour",
-    info: "Paris is synonymous with the finest things that culture can offer — in art, fashion, food, literature, and ideas. On this tour, your Paris-savvy Rick Steves guide will immerse you in the very best of the City of Light: the masterpiece-packed Louvre and Orsay museums, resilient Notre-Dame Cathedral, exquisite Sainte-Chapelle, and extravagant Palace of Versailles. You'll also enjoy guided neighborhood walks through the city's historic heart as well as quieter moments to slow down and savor the city's intimate cafés, colorful markets, and joie de vivre. Join us for the Best of Paris in 7 Days!",
-    image:
-      "https://dl.airtable.com/.attachments/a0cd0702c443f31526267f38ea5314a1/2447eb7a/paris.jpg",
-    price: "1,995",
+    id: 1,
+    title: "buttermilk pancakes",
+    category: "breakfast",
+    price: 15.99,
+    img: "./images/item-1.jpeg",
+    desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
   },
   {
-    id: "recIwxrvU9HfJR3B4",
-    name: "Best of Ireland in 14 Days Tour",
-    info: "Rick Steves' Best of Ireland tour kicks off with the best of Dublin, followed by Ireland's must-see historical sites, charming towns, music-filled pubs, and seaside getaways — including Kinsale, the Dingle Peninsula, the Cliffs of Moher, the Aran Islands, Galway, Connemara, Giant's Causeway, and the compelling city of Belfast. All along the way, Rick's guides will share their stories to draw you in to the Emerald Isle, and the friendliness of the people will surely steal your heart. Join us for the Best of Ireland in 14 Days!",
-    image:
-      "https://dl.airtable.com/.attachments/6c24084000a3777064c5200a8c2ae931/04081a3e/ireland.jpeg",
-    price: "3,895",
+    id: 2,
+    title: "diner double",
+    category: "lunch",
+    price: 13.99,
+    img: "./images/item-2.jpeg",
+    desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `,
   },
   {
-    id: "recJLWcHScdUtI3ny",
-    name: "Best of Salzburg & Vienna in 8 Days Tour",
-    info: "Let's go where classical music, towering castles, and the-hills-are-alive scenery welcome you to the gemütlichkeit of Bavaria and opulence of Austria's Golden Age. Your Rick Steves guide will bring this region's rich history and culture to life in festive Munich, Baroque Salzburg, sparkling Lake Hallstatt, monastic Melk, the blue Danube, and royal Vienna — with cozy villages and alpine vistas all along the way. Join us for the Best of Munich, Salzburg & Vienna in 8 Days!",
-    image:
-      "https://dl.airtable.com/.attachments/27f6cbfe631e303f98b97e9dafacf25b/6bbe2a07/vienna.jpeg",
-    price: "2,695",
+    id: 3,
+    title: "godzilla milkshake",
+    category: "shakes",
+    price: 6.99,
+    img: "./images/item-3.jpeg",
+    desc: `ombucha chillwave fanny pack 3 wolf moon street art photo booth before they sold out organic viral.`,
   },
   {
-    id: "recK2AOoVhIHPLUwn",
-    name: "Best of Rome in 7 Days Tour",
-    info: "Our Rome tour serves up Europe's most intoxicating brew of dazzling art, earth-shaking history, and city life with style. On this Rome vacation, your tour guide will resurrect the grandeur of ancient Rome's Colosseum, Forum, Pantheon, and nearby Ostia Antica. From the Renaissance and Baroque eras, you'll marvel at St. Peter's Basilica, the Vatican Museums, Sistine Chapel, and Borghese Gallery. You'll also enjoy today's Rome, with neighborhood walking tours, memorable restaurants, and time to explore on your own. Join us for the Best of Rome in 7 Days!",
-    image:
-      "https://dl.airtable.com/.attachments/3efa7aa402d49c12b8769c581a96af42/d5b641e3/italy.jpeg",
-    price: "2,095",
+    id: 4,
+    title: "country delight",
+    category: "breakfast",
+    price: 20.99,
+    img: "./images/item-4.jpeg",
+    desc: `Shabby chic keffiyeh neutra snackwave pork belly shoreditch. Prism austin mlkshk truffaut, `,
   },
   {
-    id: "receAEzz86KzW2gvH",
-    name: "Best of Poland in 10 Days Tour",
-    info: "Starting in the colorful port city of Gdańsk, you'll escape the crowds and embrace the understated elegance of ready-for-prime-time Poland for 10 days. With an expert Rick Steves guide at your side, you'll experience mighty Malbork castle, the cobbly-cute village of Toruń, Poland's contemporary capital of Warsaw, the spiritual Jasna Góra Monastery, and charming Kraków — Poland's finest city. In this land of surprises — so trendy and hip, yet steeped in history — there's so much to discover. Join us for the Best of Poland in 10 Days!",
-    image:
-      "https://dl.airtable.com/.attachments/3feee7a93af0f4f809312132090c9a80/58e3e8ec/poland.jpeg",
-    price: "2,595",
+    id: 5,
+    title: "egg attack",
+    category: "lunch",
+    price: 22.99,
+    img: "./images/item-5.jpeg",
+    desc: `franzen vegan pabst bicycle rights kickstarter pinterest meditation farm-to-table 90's pop-up `,
+  },
+  {
+    id: 6,
+    title: "oreo dream",
+    category: "shakes",
+    price: 18.99,
+    img: "./images/item-6.jpeg",
+    desc: `Portland chicharrones ethical edison bulb, palo santo craft beer chia heirloom iPhone everyday`,
+  },
+  {
+    id: 7,
+    title: "bacon overflow",
+    category: "breakfast",
+    price: 8.99,
+    img: "./images/item-7.jpeg",
+    desc: `carry jianbing normcore freegan. Viral single-origin coffee live-edge, pork belly cloud bread iceland put a bird `,
+  },
+  {
+    id: 8,
+    title: "american classic",
+    category: "lunch",
+    price: 12.99,
+    img: "./images/item-8.jpeg",
+    desc: `on it tumblr kickstarter thundercats migas everyday carry squid palo santo leggings. Food truck truffaut  `,
+  },
+  {
+    id: 9,
+    title: "quarantine buddy",
+    category: "shakes",
+    price: 16.99,
+    img: "./images/item-9.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
 ];
 
-const App = () => {
-  const [items, setItems] = useState(data);
-  const [isOpen, setIsOpen] = useState({});
+const Menu = () => {
+  const [list, setlist] = useState(MENU_DATA);
 
-  const onDlt = (id) => {
-    const newItems = data.filter((i) => i.id !== id);
+  const onFilter = (category) => {
+    if (category === "all") {
+      setlist(MENU_DATA);
+    } else {
+      const matches = MENU_DATA.filter((i) => i.category === category);
 
-    setItems(newItems);
+      setlist(matches);
+    }
   };
-  const toggleOpen = (id) => {
-    setIsOpen((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
   return (
-    <main id="main">
-      {items.map((item, index) => (
-        <div key={item.id} id={`tour-item-${item.id}`}>
-          <p id={`tour-item-para-${item.id}`}>{item.info.slice(0, 210)}</p>
+    <div id="main">
+      <h1>Our Menu</h1>
 
-          <button onClick={() => onDlt(item.id)} id={`delete-btn-${item.id}`}>
-            Delete
-          </button>
-          <button
-            id={`see-more-${item.id}`}
-            onClick={() => toggleOpen(item.id)}
+      <div>
+        <button id="filter-btn-0" onClick={() => onFilter("all")}>
+          All
+        </button>
+        <button id="filter-btn-1" onClick={() => onFilter("breakfast")}>
+          Breakfast
+        </button>
+        <button id="filter-btn-2" onClick={() => onFilter("lunch")}>
+          Lunch
+        </button>
+        <button id="filter-btn-3" onClick={() => onFilter("shakes")}>
+          Shakes
+        </button>
+      </div>
+
+      <div>
+        {list.map((i) => (
+          <div
+            data-test-id={
+              i.category === "breakfast"
+                ? "menu-item-breakfast"
+                : i.category === "lunch"
+                ? "menu-item-lunch"
+                : "menu-item-shakes"
+            }
+            key={i.id}
           >
-            {!isOpen[item.id] ? "See more" : "Show less"}
-          </button>
-        </div>
-      ))}
-    </main>
+            <div>
+              <img src={i.img} alt={i.title} />
+            </div>
+            <div>
+              <div>
+                <span>{i.title}</span>
+                <span>{i.price}</span>
+              </div>
+              <div>{i.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
-export default App;
+export default Menu;
