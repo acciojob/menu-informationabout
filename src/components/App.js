@@ -1,101 +1,79 @@
-<p>Now I can render any React component on any DOM node I want using ReactDOM.render</p>
-
 import React, { useState } from "react";
-import './styles.css'; // Assume this contains the necessary styles
 
-// Sample menu data
-const menuItems = [
+const data = [
   {
-    id: 1,
-    title: 'buttermilk pancakes',
-    category: 'breakfast',
-    price: 15.99,
-    img: './images/item-1.jpeg',
-    desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
+    id: "rec6d6T3q5EBIdCfD",
+    name: "Best of Paris in 7 Days Tour",
+    info: "Paris is synonymous with the finest things that culture can offer — in art, fashion, food, literature, and ideas. On this tour, your Paris-savvy Rick Steves guide will immerse you in the very best of the City of Light: the masterpiece-packed Louvre and Orsay museums, resilient Notre-Dame Cathedral, exquisite Sainte-Chapelle, and extravagant Palace of Versailles. You'll also enjoy guided neighborhood walks through the city's historic heart as well as quieter moments to slow down and savor the city's intimate cafés, colorful markets, and joie de vivre. Join us for the Best of Paris in 7 Days!",
+    image:
+      "https://dl.airtable.com/.attachments/a0cd0702c443f31526267f38ea5314a1/2447eb7a/paris.jpg",
+    price: "1,995",
   },
   {
-    id: 2,
-    title: 'diner double',
-    category: 'lunch',
-    price: 13.99,
-    img: './images/item-2.jpeg',
-    desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `,
+    id: "recIwxrvU9HfJR3B4",
+    name: "Best of Ireland in 14 Days Tour",
+    info: "Rick Steves' Best of Ireland tour kicks off with the best of Dublin, followed by Ireland's must-see historical sites, charming towns, music-filled pubs, and seaside getaways — including Kinsale, the Dingle Peninsula, the Cliffs of Moher, the Aran Islands, Galway, Connemara, Giant's Causeway, and the compelling city of Belfast. All along the way, Rick's guides will share their stories to draw you in to the Emerald Isle, and the friendliness of the people will surely steal your heart. Join us for the Best of Ireland in 14 Days!",
+    image:
+      "https://dl.airtable.com/.attachments/6c24084000a3777064c5200a8c2ae931/04081a3e/ireland.jpeg",
+    price: "3,895",
   },
   {
-    id: 3,
-    title: 'godzilla milkshake',
-    category: 'shakes',
-    price: 6.99,
-    img: './images/item-3.jpeg',
-    desc: `ombucha chillwave fanny pack 3 wolf moon street art photo booth before they sold out organic viral.`,
+    id: "recJLWcHScdUtI3ny",
+    name: "Best of Salzburg & Vienna in 8 Days Tour",
+    info: "Let's go where classical music, towering castles, and the-hills-are-alive scenery welcome you to the gemütlichkeit of Bavaria and opulence of Austria's Golden Age. Your Rick Steves guide will bring this region's rich history and culture to life in festive Munich, Baroque Salzburg, sparkling Lake Hallstatt, monastic Melk, the blue Danube, and royal Vienna — with cozy villages and alpine vistas all along the way. Join us for the Best of Munich, Salzburg & Vienna in 8 Days!",
+    image:
+      "https://dl.airtable.com/.attachments/27f6cbfe631e303f98b97e9dafacf25b/6bbe2a07/vienna.jpeg",
+    price: "2,695",
   },
   {
-    id: 4,
-    title: 'country delight',
-    category: 'breakfast',
-    price: 20.99,
-    img: './images/item-4.jpeg',
-    desc: `Shabby chic keffiyeh neutra snackwave pork belly shoreditch. Prism austin mlkshk truffaut, `,
+    id: "recK2AOoVhIHPLUwn",
+    name: "Best of Rome in 7 Days Tour",
+    info: "Our Rome tour serves up Europe's most intoxicating brew of dazzling art, earth-shaking history, and city life with style. On this Rome vacation, your tour guide will resurrect the grandeur of ancient Rome's Colosseum, Forum, Pantheon, and nearby Ostia Antica. From the Renaissance and Baroque eras, you'll marvel at St. Peter's Basilica, the Vatican Museums, Sistine Chapel, and Borghese Gallery. You'll also enjoy today's Rome, with neighborhood walking tours, memorable restaurants, and time to explore on your own. Join us for the Best of Rome in 7 Days!",
+    image:
+      "https://dl.airtable.com/.attachments/3efa7aa402d49c12b8769c581a96af42/d5b641e3/italy.jpeg",
+    price: "2,095",
   },
   {
-    id: 5,
-    title: 'egg attack',
-    category: 'lunch',
-    price: 22.99,
-    img: './images/item-5.jpeg',
-    desc: `franzen vegan pabst bicycle rights kickstarter pinterest meditation farm-to-table 90's pop-up `,
+    id: "receAEzz86KzW2gvH",
+    name: "Best of Poland in 10 Days Tour",
+    info: "Starting in the colorful port city of Gdańsk, you'll escape the crowds and embrace the understated elegance of ready-for-prime-time Poland for 10 days. With an expert Rick Steves guide at your side, you'll experience mighty Malbork castle, the cobbly-cute village of Toruń, Poland's contemporary capital of Warsaw, the spiritual Jasna Góra Monastery, and charming Kraków — Poland's finest city. In this land of surprises — so trendy and hip, yet steeped in history — there's so much to discover. Join us for the Best of Poland in 10 Days!",
+    image:
+      "https://dl.airtable.com/.attachments/3feee7a93af0f4f809312132090c9a80/58e3e8ec/poland.jpeg",
+    price: "2,595",
   },
-  {
-    id: 6,
-    title: 'oreo dream',
-    category: 'shakes',
-    price: 18.99,
-    img: './images/item-6.jpeg',
-    desc: `Portland chicharrones ethical edison bulb, palo santo craft beer chia heirloom iPhone everyday`,
-  },
-  // Add more items here as needed...
 ];
 
 const App = () => {
-  const [category, setCategory] = useState("all"); // State to manage the selected category
-  const [items, setItems] = useState(menuItems); // Set initial items to all menu items
+  const [items, setItems] = useState(data);
+  const [isOpen, setIsOpen] = useState({});
 
-  // Filter items based on category
-  const filterItems = (category) => {
-    if (category === "all") {
-      setItems(menuItems);
-    } else {
-      setItems(menuItems.filter(item => item.category === category));
-    }
+  const onDlt = (id) => {
+    const newItems = data.filter((i) => i.id !== id);
+
+    setItems(newItems);
+  };
+  const toggleOpen = (id) => {
+    setIsOpen((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   return (
-    <div>
-      {/* Main section */}
-      <div id="main">
-        <h1>Menu</h1>
-        
-        {/* Category buttons */}
-        <div>
-          <button id="filter-btn-1" onClick={() => { filterItems('breakfast'); }}>Breakfast</button>
-          <button id="filter-btn-2" onClick={() => { filterItems('lunch'); }}>Lunch</button>
-          <button id="filter-btn-3" onClick={() => { filterItems('shakes'); }}>Shakes</button>
-          <button id="filter-btn-4" onClick={() => { filterItems('all'); }}>All</button>
+    <main id="main">
+      {items.map((item, index) => (
+        <div key={item.id} id={`tour-item-${item.id}`}>
+          <p id={`tour-item-para-${item.id}`}>{item.info.slice(0, 210)}</p>
+
+          <button onClick={() => onDlt(item.id)} id={`delete-btn-${item.id}`}>
+            Delete
+          </button>
+          <button
+            id={`see-more-${item.id}`}
+            onClick={() => toggleOpen(item.id)}
+          >
+            {!isOpen[item.id] ? "See more" : "Show less"}
+          </button>
         </div>
-        
-        {/* Menu items display */}
-        <div className="menu-items">
-          {items.map(item => (
-            <div key={item.id} className="menu-item" data-test-id={`menu-item-${item.category}`}>
-              <img src={item.img} alt={item.title} />
-              <h2>{item.title}</h2>
-              <p>{item.desc}</p>
-              <span>${item.price}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+      ))}
+    </main>
   );
 };
 
